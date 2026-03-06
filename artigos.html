@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artigos — Desempenho Veloz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#F5C518;--yellow-dark:#D4A500;--yellow-glow:rgba(245,197,24,0.18);--yellow-subtle:rgba(245,197,24,0.08);--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--card:#1A1A1A;--card2:#202020;--border:rgba(255,255,255,0.07);--border2:rgba(245,197,24,0.18);--text:#F0E8DC;--text-soft:#A0917D;--text-muted:#5E5143;--shadow:rgba(0,0,0,0.5);--shadow-md:rgba(0,0,0,0.7);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,10,10,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--yellow);}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.88rem;font-weight:500;color:var(--text-soft);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.nav-cta{background:var(--yellow)!important;color:#0A0A0A!important;font-weight:700!important;padding:9px 22px!important;border-radius:50px!important;box-shadow:0 2px 16px rgba(245,197,24,0.35)!important;}
+
+.page-hero{padding:120px 5vw 80px;background:var(--bg2);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.page-hero::after{content:'ARTIGOS';position:absolute;right:3vw;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:12rem;font-weight:900;color:rgba(245,197,24,0.03);pointer-events:none;white-space:nowrap;line-height:1;}
+.page-hero-inner{max-width:1200px;margin:0 auto;}
+.page-pill{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-subtle);border:1px solid var(--border2);color:var(--yellow);font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-0.5px;}
+.page-hero h1 em{font-style:italic;color:var(--yellow);}
+.page-hero p{color:var(--text-soft);font-size:1.05rem;line-height:1.7;margin-top:1rem;max-width:540px;}
+
+.filters-bar{padding:1.5rem 5vw;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;gap:0.7rem;flex-wrap:wrap;}
+.filter-btn{font-size:0.82rem;font-weight:600;padding:8px 18px;background:var(--card);border:1px solid var(--border);color:var(--text-soft);border-radius:50px;cursor:pointer;transition:all 0.2s;}
+.filter-btn.active{background:var(--yellow);border-color:var(--yellow);color:#0A0A0A;box-shadow:0 2px 12px rgba(245,197,24,0.3);}
+.filter-btn:hover:not(.active){border-color:var(--border2);color:var(--text);}
+
+.featured-wrap{padding:60px 5vw 0;max-width:1280px;margin:0 auto;}
+.featured-card{display:grid;grid-template-columns:1.2fr 1fr;background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.featured-card:hover{border-color:var(--border2);box-shadow:0 12px 40px var(--shadow-md);transform:translateY(-3px);}
+.featured-img{background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:5rem;min-height:300px;}
+.featured-body{padding:3rem;display:flex;flex-direction:column;justify-content:center;}
+.feat-pill{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-subtle);border:1px solid var(--border2);color:var(--yellow);font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1.2rem;}
+.feat-meta{font-size:0.78rem;color:var(--text-muted);margin-bottom:0.8rem;}
+.featured-body h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;line-height:1.3;color:var(--text);margin-bottom:1rem;}
+.featured-body p{color:var(--text-soft);font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem;}
+.read-btn{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:#0A0A0A;font-size:0.9rem;font-weight:700;padding:12px 24px;border-radius:50px;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(245,197,24,0.35);width:fit-content;}
+.read-btn:hover{background:var(--yellow-dark);transform:translateY(-1px);}
+
+.articles-section{padding:60px 5vw 100px;}
+.articles-inner{max-width:1200px;margin:0 auto;}
+.section-pill{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-subtle);border:1px solid var(--border2);color:var(--yellow);font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1rem;}
+h2.gh{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--text);margin-bottom:2.5rem;letter-spacing:-0.3px;}
+h2.gh em{font-style:italic;color:var(--yellow);}
+.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.article-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.2s;cursor:pointer;}
+.article-card:hover{border-color:var(--border2);box-shadow:0 8px 32px var(--shadow-md);transform:translateY(-4px);}
+.article-img{aspect-ratio:16/9;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+.article-body{padding:1.5rem;}
+.article-tags{display:flex;gap:0.5rem;margin-bottom:0.7rem;flex-wrap:wrap;}
+.article-tag{font-size:0.7rem;font-weight:600;color:var(--yellow);background:var(--yellow-subtle);padding:3px 10px;border-radius:50px;border:1px solid var(--border2);}
+.article-title{font-weight:700;font-size:0.95rem;line-height:1.4;color:var(--text);margin-bottom:0.5rem;}
+.article-excerpt{font-size:0.8rem;color:var(--text-soft);line-height:1.6;margin-bottom:1rem;}
+.article-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-muted);}
+.article-read{color:var(--yellow);font-weight:700;font-size:0.8rem;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;display:none;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(10px);}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:24px;max-width:760px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 64px var(--shadow-md);}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;background:var(--card2);border:1px solid var(--border);color:var(--text-soft);width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:2;}
+.modal-close:hover{background:var(--yellow);border-color:var(--yellow);color:#0A0A0A;}
+.modal-hero{aspect-ratio:16/7;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:4.5rem;border-radius:22px 22px 0 0;}
+.modal-body{padding:2.5rem;}
+.modal-pill{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-subtle);border:1px solid var(--border2);color:var(--yellow);font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1rem;}
+.modal-body h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;line-height:1.3;color:var(--text);margin-bottom:0.6rem;}
+.modal-meta{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.8rem;}
+.modal-content p{color:var(--text-soft);line-height:1.85;font-size:0.97rem;margin-bottom:1.2rem;}
+.modal-content h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin:1.8rem 0 0.7rem;}
+.modal-content ul{list-style:none;padding:0;margin-bottom:1.2rem;}
+.modal-content ul li{color:var(--text-soft);font-size:0.95rem;line-height:1.7;padding-left:1.4rem;position:relative;margin-bottom:0.5rem;}
+.modal-content ul li::before{content:'→';position:absolute;left:0;color:var(--yellow);font-size:0.85rem;font-weight:700;}
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:70px 5vw 30px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:1rem;}
+.footer-logo span{color:var(--yellow);}
+.footer-about{font-size:0.85rem;line-height:1.7;color:var(--text-muted);}
+.footer-col h4{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--yellow);margin-bottom:1.2rem;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:0.6rem;}
+.footer-col ul a{font-size:0.84rem;color:var(--text-soft);text-decoration:none;transition:color 0.2s;}
+.footer-col ul a:hover{color:var(--text);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);}
+
+@media(max-width:960px){.featured-card{grid-template-columns:1fr;}.articles-grid{grid-template-columns:1fr 1fr;}.footer-top{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.articles-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Desempenho<span>Veloz</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#marcas">Marcas</a></li>
+    <li><a href="index.html#produtos">Produtos</a></li>
+    <li><a href="artigos.html" class="active">Artigos</a></li>
+    <li><a href="sobre.html">Sobre Nós</a></li>
+    <li><a href="index.html#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-pill">✦ Dicas & Manutenção</span>
+    <h1>Artigos &<br><em>dicas úteis</em></h1>
+    <p>Conselhos práticos dos nossos especialistas para cuidar melhor do seu automóvel.</p>
+  </div>
+</section>
+
+<div class="filters-bar">
+  <button class="filter-btn active">Todos</button>
+  <button class="filter-btn">Óleos</button>
+  <button class="filter-btn">Travões</button>
+  <button class="filter-btn">Filtros</button>
+  <button class="filter-btn">Baterias</button>
+  <button class="filter-btn">Manutenção</button>
+</div>
+
+<div class="featured-wrap">
+  <div class="featured-card" onclick="openModal('oleo')">
+    <div class="featured-img">🛢️</div>
+    <div class="featured-body">
+      <span class="feat-pill">⭐ Em Destaque</span>
+      <div class="feat-meta">Manutenção · 5 min de leitura</div>
+      <h2>Quando trocar o óleo do carro? O guia completo</h2>
+      <p>A troca de óleo é a manutenção mais importante para a longevidade do motor. Descubra a frequência certa e os sinais que não pode ignorar.</p>
+      <button class="read-btn">Ler Artigo →</button>
+    </div>
+  </div>
+</div>
+
+<section class="articles-section">
+  <div class="articles-inner">
+    <span class="section-pill">✦ Todos os artigos</span>
+    <h2 class="gh">Mais para <em>ler</em></h2>
+    <div class="articles-grid">
+      <div class="article-card" onclick="openModal('travoes')"><div class="article-img">🔧</div><div class="article-body"><div class="article-tags"><span class="article-tag">Travões</span><span class="article-tag">Segurança</span></div><div class="article-title">Como verificar as pastilhas dos travões</div><div class="article-excerpt">Aprenda a identificar desgaste antes que se torne um problema de segurança.</div><div class="article-footer"><span>5 min de leitura</span><span class="article-read">Ler →</span></div></div></div>
+      <div class="article-card" onclick="openModal('filtro')"><div class="article-img">⚙️</div><div class="article-body"><div class="article-tags"><span class="article-tag">Filtros</span></div><div class="article-title">Filtro de ar: quando e como substituir</div><div class="article-excerpt">Um filtro sujo pode reduzir a potência e aumentar o consumo. Saiba quando trocar.</div><div class="article-footer"><span>3 min de leitura</span><span class="article-read">Ler →</span></div></div></div>
+      <div class="article-card" onclick="openModal('bateria')"><div class="article-img">🔋</div><div class="article-body"><div class="article-tags"><span class="article-tag">Baterias</span></div><div class="article-title">Vida útil da bateria: o que saber</div><div class="article-excerpt">Descubra os sinais de fraqueza e como prolongar a vida da sua bateria.</div><div class="article-footer"><span>4 min de leitura</span><span class="article-read">Ler →</span></div></div></div>
+      <div class="article-card" onclick="openModal('pneus')"><div class="article-img">🚗</div><div class="article-body"><div class="article-tags"><span class="article-tag">Manutenção</span></div><div class="article-title">Pressão dos pneus: como verificar</div><div class="article-excerpt">Pneus com pressão incorreta comprometem a segurança e o consumo.</div><div class="article-footer"><span>3 min de leitura</span><span class="article-read">Ler →</span></div></div></div>
+      <div class="article-card" onclick="openModal('liquidos')"><div class="article-img">💧</div><div class="article-body"><div class="article-tags"><span class="article-tag">Manutenção</span><span class="article-tag">Motor</span></div><div class="article-title">Os líquidos do carro que deve verificar</div><div class="article-excerpt">Do arrefecimento ao travão — saiba quais verificar e com que frequência.</div><div class="article-footer"><span>4 min de leitura</span><span class="article-read">Ler →</span></div></div></div>
+      <div class="article-card" onclick="openModal('lampadas')"><div class="article-img">💡</div><div class="article-body"><div class="article-tags"><span class="article-tag">Elétrico</span></div><div class="article-title">Lâmpadas fundidas: como substituir</div><div class="article-excerpt">Conduzir com uma lâmpada fundida é ilegal. Aprenda a substituir facilmente.</div><div class="article-footer"><span>3 min de leitura</span><span class="article-read">Ler →</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modal" onclick="closeOnOverlay(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo">Desempenho<span>Veloz</span></div><p class="footer-about">A sua loja de referência para peças de automóvel nas Caldas das Taipas.</p></div>
+    <div class="footer-col"><h4>Produtos</h4><ul><li><a href="#">Óleos Liqui-Moly</a></li><li><a href="#">Óleos Castrol</a></li><li><a href="#">Travões & Discos</a></li><li><a href="#">Filtros</a></li></ul></div>
+    <div class="footer-col"><h4>Empresa</h4><ul><li><a href="sobre.html">Sobre Nós</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="index.html#contacto">Contacto</a></li></ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="tel:+351253775904">253 775 904</a></li><li><a href="#">Caldas das Taipas</a></li><li><a href="#">Seg–Sáb, 09–19h</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Desempenho Veloz · Todos os direitos reservados</span><span>Caldas das Taipas, Guimarães</span></div>
+</footer>
+
+<script>
+const arts={
+  oleo:{e:'🛢️',t:'Manutenção · Motor',h:'Quando trocar o óleo do carro?',m:'5 min de leitura',c:`<p>O óleo do motor lubrifica as peças em movimento, reduz o atrito e protege o motor do desgaste. Mas degrada-se com o tempo e o uso.</p><h3>Com que frequência?</h3><ul><li>Óleo mineral: a cada 5.000–7.500 km</li><li>Óleo semi-sintético: a cada 10.000 km</li><li>Óleo totalmente sintético: a cada 15.000–20.000 km</li></ul><h3>Sinais de alerta</h3><ul><li>Luz de aviso no painel acesa</li><li>Óleo escuro ou granulado na vareta</li><li>Motor com mais ruído que o habitual</li><li>Cheiro a óleo queimado no habitáculo</li></ul><h3>Que óleo usar?</h3><p>A especificação correta está no manual do proprietário. Na Desempenho Veloz temos toda a gama Liqui-Moly e Castrol e ajudamos a encontrar o óleo certo para o seu veículo.</p>`},
+  travoes:{e:'🔧',t:'Travões · Segurança',h:'Como verificar as pastilhas dos travões',m:'5 min de leitura',c:`<p>As pastilhas dos travões são um dos componentes de segurança mais críticos do carro. Saber quando estão desgastadas pode evitar acidentes.</p><h3>Como verificar</h3><ul><li>Olhe pelos raios da roda — menos de 3mm, é hora de trocar</li><li>Chiado metálico ao travar é sinal claro de desgaste</li><li>Vibrações no pedal podem indicar pastilhas ou discos danificados</li><li>Carro a puxar para um lado ao travar — verifique imediatamente</li></ul><h3>Com que frequência?</h3><ul><li>Pastilhas dianteiras: geralmente a cada 40.000–60.000 km</li><li>Pastilhas traseiras: geralmente a cada 60.000–80.000 km</li></ul><p>Na Desempenho Veloz temos pastilhas de qualidade para os modelos mais comuns da região.</p>`},
+  filtro:{e:'⚙️',t:'Filtros · Motor',h:'Filtro de ar: quando substituir',m:'3 min de leitura',c:`<p>O filtro de ar impede que poeira e partículas entrem no motor. Quando fica entupido, o motor perde eficiência.</p><h3>Sintomas de filtro sujo</h3><ul><li>Aumento do consumo de combustível</li><li>Perda de potência e aceleração mais lenta</li><li>Motor a funcionar de forma irregular</li></ul><h3>Quando trocar?</h3><p>A maioria dos fabricantes recomenda a cada 15.000–25.000 km. Em zonas com muita poeira pode ser necessário trocar mais cedo.</p>`},
+  bateria:{e:'🔋',t:'Baterias · Elétrico',h:'Vida útil da bateria',m:'4 min de leitura',c:`<p>A bateria arranca o motor e alimenta todos os sistemas elétricos. Tem vida útil limitada e costuma falhar nos piores momentos.</p><h3>Quanto tempo dura?</h3><p>Em média, entre 3 a 5 anos. Viagens curtas frequentes e climas extremos reduzem a vida útil.</p><h3>Sinais de bateria fraca</h3><ul><li>Motor a arrancar lentamente de manhã</li><li>Luzes mais fracas que o habitual</li><li>Luz da bateria acesa no painel</li><li>Necessidade frequente de cabos de arranque</li></ul><p>Na Desempenho Veloz testamos a sua bateria gratuitamente. Venha à loja!</p>`},
+  pneus:{e:'🚗',t:'Manutenção · Segurança',h:'Pressão dos pneus: como verificar',m:'3 min de leitura',c:`<p>A pressão correta é fundamental para a segurança e economia. Pneus com pouca pressão são perigosos e gastam mais combustível.</p><h3>Como verificar</h3><ul><li>Use um manómetro num posto de combustível</li><li>Verifique com os pneus frios (antes de conduzir 2km)</li><li>Compare com os valores recomendados pelo fabricante</li></ul><p>Recomendamos a verificação mensal e sempre antes de viagens longas.</p>`},
+  lampadas:{e:'💡',t:'Elétrico · Manutenção',h:'Lâmpadas fundidas: como substituir',m:'3 min de leitura',c:`<p>Conduzir com uma lâmpada fundida é ilegal e perigoso. Em muitos casos é possível substituir sem ir a uma oficina.</p><h3>Como substituir halogéneo</h3><ul><li>Desligue o carro e espere arrefecer</li><li>Aceda ao compartimento do motor ou pela roda</li><li>Instale a nova SEM tocar no vidro — use luvas</li><li>Teste antes de montar tudo</li></ul><p>Na Desempenho Veloz temos as principais referências em stock.</p>`},
+  liquidos:{e:'💧',t:'Manutenção · Motor',h:'Os líquidos do carro que deve verificar',m:'4 min de leitura',c:`<p>Um carro usa vários líquidos essenciais. Verificá-los regularmente evita avarias e custos elevados.</p><h3>Os 5 mais importantes</h3><ul><li>Óleo do motor — verifique mensalmente com a vareta</li><li>Líquido de arrefecimento — nunca abra com o motor quente</li><li>Líquido dos travões — cor amarelo claro, troca a cada 2 anos</li><li>Líquido da direção assistida — em carros com direção hidráulica</li><li>Água do limpa-pára-brisas — pode usar água simples</li></ul>`}
+};
+function openModal(id){const a=arts[id];if(!a)return;document.getElementById('modal-inner').innerHTML=`<div class="modal-hero">${a.e}</div><div class="modal-body"><span class="modal-pill">${a.t}</span><h2>${a.h}</h2><div class="modal-meta">${a.m}</div><div class="modal-content">${a.c}</div></div>`;document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function closeOnOverlay(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+</script>
+</body>
+</html>

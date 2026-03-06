@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre Nós — Desempenho Veloz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#F5C518;--yellow-dark:#D4A500;--yellow-glow:rgba(245,197,24,0.18);--yellow-subtle:rgba(245,197,24,0.08);--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--card:#1A1A1A;--card2:#202020;--border:rgba(255,255,255,0.07);--border2:rgba(245,197,24,0.18);--text:#F0E8DC;--text-soft:#A0917D;--text-muted:#5E5143;--shadow:rgba(0,0,0,0.5);--shadow-md:rgba(0,0,0,0.7);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,10,10,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--yellow);}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.88rem;font-weight:500;color:var(--text-soft);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.nav-cta{background:var(--yellow)!important;color:#0A0A0A!important;font-weight:700!important;padding:9px 22px!important;border-radius:50px!important;box-shadow:0 2px 16px rgba(245,197,24,0.35)!important;}
+
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-size:0.9rem;font-weight:600;padding:13px 28px;border-radius:50px;text-decoration:none;border:1.5px solid rgba(255,255,255,0.15);transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-2px);}
+
+.page-hero{padding:120px 5vw 80px;background:var(--bg2);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.page-hero::after{content:'SOBRE';position:absolute;right:3vw;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:12rem;font-weight:900;color:rgba(245,197,24,0.03);pointer-events:none;white-space:nowrap;line-height:1;}
+.page-hero-inner{max-width:1200px;margin:0 auto;}
+.page-pill{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-subtle);border:1px solid var(--border2);color:var(--yellow);font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-0.5px;}
+.page-hero h1 em{font-style:italic;color:var(--yellow);}
+.page-hero p{color:var(--text-soft);font-size:1.05rem;line-height:1.7;margin-top:1rem;max-width:540px;}
+
+.section{padding:90px 5vw;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-pill{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-subtle);border:1px solid var(--border2);color:var(--yellow);font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1rem;}
+h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.1;color:var(--text);margin-bottom:1.2rem;letter-spacing:-0.3px;}
+h2 em{font-style:italic;color:var(--yellow);}
+
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.intro-text p{color:var(--text-soft);line-height:1.8;margin-bottom:1rem;}
+.img-ph{width:100%;aspect-ratio:4/5;background:var(--card);border-radius:24px;border:2px dashed rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.82rem;font-weight:500;gap:12px;position:relative;}
+.img-acc{position:absolute;top:1.5rem;left:-1.5rem;width:6px;height:55%;background:var(--yellow);border-radius:3px;}
+
+.valores-bg{background:var(--bg2);}
+.valores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.valor-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all 0.2s;border-top:3px solid var(--yellow);}
+.valor-card:hover{border-color:var(--border2);box-shadow:0 8px 32px var(--shadow-md);transform:translateY(-3px);}
+.valor-icon{font-size:2rem;margin-bottom:1rem;}
+.valor-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;}
+.valor-text{font-size:0.88rem;color:var(--text-soft);line-height:1.7;}
+
+.socios-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
+.socio-card{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;transition:all 0.2s;}
+.socio-card:hover{border-color:var(--border2);box-shadow:0 8px 32px var(--shadow-md);transform:translateY(-3px);}
+.socio-img{aspect-ratio:3/2;background:var(--card2);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.82rem;gap:12px;border-bottom:1px solid var(--border);}
+.socio-body{padding:2rem;}
+.socio-role{font-size:0.72rem;font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem;}
+.socio-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--text);margin-bottom:1rem;}
+.socio-bio{font-size:0.88rem;color:var(--text-soft);line-height:1.8;}
+
+.historia-bg{background:var(--bg3);}
+.timeline{margin-top:3rem;position:relative;padding-left:2rem;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--border);border-radius:1px;}
+.tl-item{padding:0 0 3rem 2.5rem;position:relative;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{position:absolute;left:-7px;top:6px;width:14px;height:14px;background:var(--yellow);border-radius:50%;border:2px solid var(--bg3);box-shadow:0 0 0 3px var(--yellow-glow);}
+.tl-year{display:inline-block;background:var(--yellow);color:#0A0A0A;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;padding:3px 12px;border-radius:50px;margin-bottom:0.6rem;}
+.tl-title{font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.5rem;}
+.tl-text{font-size:0.88rem;color:var(--text-soft);line-height:1.7;max-width:600px;}
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:70px 5vw 30px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:1rem;}
+.footer-logo span{color:var(--yellow);}
+.footer-about{font-size:0.85rem;line-height:1.7;color:var(--text-muted);}
+.footer-col h4{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--yellow);margin-bottom:1.2rem;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:0.6rem;}
+.footer-col ul a{font-size:0.84rem;color:var(--text-soft);text-decoration:none;transition:color 0.2s;}
+.footer-col ul a:hover{color:var(--text);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);}
+
+@media(max-width:960px){.intro-grid{grid-template-columns:1fr;gap:3rem;}.valores-grid{grid-template-columns:1fr;}.socios-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Desempenho<span>Veloz</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#marcas">Marcas</a></li>
+    <li><a href="index.html#produtos">Produtos</a></li>
+    <li><a href="artigos.html">Artigos</a></li>
+    <li><a href="sobre.html" class="active">Sobre Nós</a></li>
+    <li><a href="index.html#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-pill">✦ A nossa história</span>
+    <h1>Quem<br><em>somos nós</em></h1>
+    <p>Uma loja nascida da paixão pelos automóveis e pelo compromisso com a qualidade. Conheça a história da Desempenho Veloz.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <span class="section-pill">✦ A nossa missão</span>
+        <h2>Qualidade<br><em>garantida, sempre</em></h2>
+        <p>A Desempenho Veloz nasceu com um objetivo claro: oferecer as melhores peças de automóvel nas Caldas das Taipas, com atendimento especializado e preços justos.</p>
+        <p>Somos distribuidores exclusivos das marcas mais reconhecidas do setor, garantindo produtos originais com as melhores condições do mercado.</p>
+        <p>A nossa equipa tem vasta experiência no setor automóvel e está sempre disponível para ajudar a encontrar a peça certa para o seu veículo.</p>
+        <a href="index.html#contacto" class="btn-outline" style="margin-top:1.5rem">Fale Connosco →</a>
+      </div>
+      <div>
+        <div class="img-ph">
+          <div class="img-acc"></div>
+          <svg width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Foto da Loja
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section valores-bg">
+  <div class="section-inner">
+    <span class="section-pill">✦ O que nos define</span>
+    <h2>Os nossos <em>valores</em></h2>
+    <div class="valores-grid">
+      <div class="valor-card"><div class="valor-icon">🏆</div><div class="valor-title">Qualidade</div><div class="valor-text">Trabalhamos apenas com as marcas mais reconhecidas. Cada produto é selecionado com rigor para garantir a máxima fiabilidade.</div></div>
+      <div class="valor-card"><div class="valor-icon">🤝</div><div class="valor-title">Confiança</div><div class="valor-text">A nossa relação com os clientes é baseada na honestidade. Aconselhamos sempre a melhor solução sem pressões comerciais.</div></div>
+      <div class="valor-card"><div class="valor-icon">⚡</div><div class="valor-title">Conhecimento</div><div class="valor-text">Anos de experiência no setor traduzem-se num atendimento especializado e no conselho certo na hora de escolher a peça ideal.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <span class="section-pill">✦ A equipa</span>
+    <h2>Os nossos <em>sócios</em></h2>
+    <div class="socios-grid">
+      <div class="socio-card">
+        <div class="socio-img"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Foto do Sócio 1</div>
+        <div class="socio-body"><div class="socio-role">Co-fundador & Sócio</div><div class="socio-name">Nome do Sócio 1</div><p class="socio-bio">Com mais de [X] anos de experiência no setor automóvel, [Nome] é o especialista técnico da Desempenho Veloz. A sua paixão pelos automóveis começou ainda em jovem e o conhecimento acumulado é hoje um dos maiores ativos da loja.</p></div>
+      </div>
+      <div class="socio-card">
+        <div class="socio-img"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Foto do Sócio 2</div>
+        <div class="socio-body"><div class="socio-role">Co-fundador & Sócio</div><div class="socio-name">Nome do Sócio 2</div><p class="socio-bio">Responsável pela gestão e relações comerciais, [Nome] trouxe o seu espírito empreendedor para criar uma loja de referência na região. Garante que os clientes encontram sempre o que precisam ao melhor preço.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section historia-bg">
+  <div class="section-inner">
+    <span class="section-pill">✦ A nossa jornada</span>
+    <h2>Como <em>começámos</em></h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">20XX</div><div class="tl-title">O início de tudo</div><div class="tl-text">Os dois sócios, unidos pela paixão pelos automóveis, decidiram criar uma loja especializada nas Caldas das Taipas com qualidade, preço justo e atendimento diferente do habitual.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">20XX</div><div class="tl-title">Primeiros passos</div><div class="tl-text">A loja abriu as portas com um stock selecionado com rigor. Desde o primeiro dia, o foco esteve na qualidade e no aconselhamento personalizado. A reputação cresceu pela palavra dos próprios clientes.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">20XX</div><div class="tl-title">Distribuição exclusiva</div><div class="tl-text">A Desempenho Veloz torna-se distribuidora exclusiva de Liqui-Moly e Castrol na região, consolidando a sua posição e permitindo melhores condições para os clientes.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Hoje</div><div class="tl-title">Uma referência na região</div><div class="tl-text">Hoje, a Desempenho Veloz é sinónimo de confiança e qualidade. Centenas de clientes satisfeitos são o reflexo de uma equipa comprometida com a excelência.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo">Desempenho<span>Veloz</span></div><p class="footer-about">A sua loja de referência para peças de automóvel nas Caldas das Taipas.</p></div>
+    <div class="footer-col"><h4>Produtos</h4><ul><li><a href="#">Óleos Liqui-Moly</a></li><li><a href="#">Óleos Castrol</a></li><li><a href="#">Travões & Discos</a></li><li><a href="#">Filtros</a></li></ul></div>
+    <div class="footer-col"><h4>Empresa</h4><ul><li><a href="sobre.html">Sobre Nós</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="index.html#contacto">Contacto</a></li></ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="tel:+351253775904">253 775 904</a></li><li><a href="#">Caldas das Taipas</a></li><li><a href="#">Seg–Sáb, 09–19h</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Desempenho Veloz · Todos os direitos reservados</span><span>Caldas das Taipas, Guimarães</span></div>
+</footer>
+</body>
+</html>

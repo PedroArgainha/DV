@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desempenho Veloz — Peças Auto nas Caldas das Taipas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow:        #F5C518;
+  --yellow-dark:   #D4A500;
+  --yellow-glow:   rgba(245,197,24,0.18);
+  --yellow-subtle: rgba(245,197,24,0.08);
+
+  /* Pure black palette */
+  --bg:    #0A0A0A;
+  --bg2:   #111111;
+  --bg3:   #161616;
+  --card:  #1A1A1A;
+  --card2: #202020;
+
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(245,197,24,0.18);
+
+  --text:       #F0E8DC;
+  --text-soft:  #A0917D;
+  --text-muted: #5E5143;
+
+  --shadow:    rgba(0,0,0,0.5);
+  --shadow-md: rgba(0,0,0,0.7);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 5vw; height:68px;
+  background:rgba(10,10,10,0.94); backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow 0.3s;
+}
+nav.scrolled { box-shadow:0 4px 28px var(--shadow-md); }
+.nav-logo { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:900; color:var(--text); text-decoration:none; }
+.nav-logo span { color:var(--yellow); }
+.nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
+.nav-links a { font-size:0.88rem; font-weight:500; color:var(--text-soft); text-decoration:none; transition:color 0.2s; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta {
+  background:var(--yellow) !important; color:#0A0A0A !important;
+  font-weight:700 !important; padding:9px 22px !important;
+  border-radius:50px !important;
+  box-shadow:0 2px 16px rgba(245,197,24,0.35) !important;
+  transition:all 0.2s !important;
+}
+.nav-cta:hover { background:var(--yellow-dark) !important; transform:translateY(-1px); }
+
+/* ── BUTTONS ── */
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--yellow); color:#0A0A0A;
+  font-size:0.9rem; font-weight:700;
+  padding:13px 28px; border-radius:50px;
+  text-decoration:none; border:none; cursor:pointer;
+  box-shadow:0 4px 20px rgba(245,197,24,0.35);
+  transition:all 0.2s;
+}
+.btn-primary:hover { background:var(--yellow-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(245,197,24,0.45); }
+
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:var(--text);
+  font-size:0.9rem; font-weight:600;
+  padding:13px 28px; border-radius:50px;
+  text-decoration:none;
+  border:1.5px solid rgba(255,255,255,0.15);
+  transition:all 0.2s;
+}
+.btn-outline:hover { border-color:var(--yellow); color:var(--yellow); transform:translateY(-2px); }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
+  align-items:center; padding:68px 5vw 0; gap:4rem;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; right:0; width:55%; height:100%;
+  background:var(--bg2); clip-path:ellipse(100% 80% at 100% 50%); z-index:0;
+}
+.hero::after {
+  content:''; position:absolute; top:10%; right:5%; width:500px; height:500px;
+  background:radial-gradient(circle, rgba(245,197,24,0.06) 0%, transparent 70%); pointer-events:none;
+}
+.hero-left  { position:relative; z-index:1; }
+.hero-right { position:relative; z-index:1; }
+
+.hero-pill {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--yellow-subtle); border:1px solid var(--border2);
+  color:var(--yellow); font-size:0.78rem; font-weight:600;
+  padding:6px 16px; border-radius:50px; margin-bottom:1.8rem;
+}
+.pill-dot { width:7px; height:7px; background:var(--yellow); border-radius:50%; }
+
+h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,5.5vw,4.8rem); font-weight:900; line-height:1.06;
+  color:var(--text); margin-bottom:1.4rem; letter-spacing:-0.5px;
+}
+h1 em { font-style:italic; color:var(--yellow); }
+
+.hero-sub { font-size:1rem; line-height:1.8; color:var(--text-soft); margin-bottom:2.5rem; max-width:420px; }
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3rem; }
+
+.hero-stats { display:flex; gap:2.5rem; padding-top:2rem; border-top:1px solid var(--border); }
+.stat-num  { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:700; color:var(--yellow); line-height:1; }
+.stat-label { font-size:0.78rem; color:var(--text-muted); margin-top:4px; font-weight:500; }
+
+.hero-img-placeholder {
+  width:100%; aspect-ratio:4/3; background:var(--card);
+  border-radius:24px; border:2px dashed rgba(255,255,255,0.1);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  color:var(--text-muted); font-size:0.82rem; font-weight:500; gap:12px;
+}
+.hero-badge {
+  position:absolute; bottom:-18px; left:28px;
+  background:var(--card2); border:1px solid var(--border2);
+  border-radius:18px; padding:14px 20px;
+  display:flex; align-items:center; gap:12px;
+  box-shadow:0 8px 32px var(--shadow-md);
+}
+.badge-icon { width:40px; height:40px; background:var(--yellow-subtle); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+.badge-text { font-size:0.78rem; font-weight:600; color:var(--text); }
+.badge-sub  { font-size:0.72rem; color:var(--text-soft); }
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background:var(--yellow); padding:15px 5vw;
+  display:flex; align-items:center; justify-content:center; gap:3rem; flex-wrap:wrap;
+}
+.trust-item { display:flex; align-items:center; gap:8px; font-size:0.85rem; font-weight:700; color:#0A0A0A; }
+.trust-sep  { width:4px; height:4px; background:#0A0A0A; border-radius:50%; opacity:0.3; }
+
+/* ── SECTIONS ── */
+.section { padding:90px 5vw; }
+.section-inner { max-width:1200px; margin:0 auto; }
+.section-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--yellow-subtle); border:1px solid var(--border2);
+  color:var(--yellow); font-size:0.75rem; font-weight:600;
+  padding:5px 14px; border-radius:50px; margin-bottom:1rem;
+}
+h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3rem); font-weight:900; line-height:1.1;
+  color:var(--text); margin-bottom:1rem; letter-spacing:-0.3px;
+}
+h2 em { font-style:italic; color:var(--yellow); }
+.section-sub { font-size:1rem; color:var(--text-soft); line-height:1.75; max-width:520px; }
+
+/* ── MARCAS ── */
+.marcas-bg { background:var(--bg2); }
+.marcas-head { display:flex; align-items:flex-start; justify-content:space-between; gap:2rem; margin-bottom:3rem; flex-wrap:wrap; }
+.brands-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; }
+.brand-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:20px; padding:2rem;
+  display:flex; align-items:center; gap:1.5rem; transition:all 0.25s;
+}
+.brand-card:hover { border-color:var(--border2); box-shadow:0 8px 32px var(--shadow-md); transform:translateY(-3px); }
+.brand-icon {
+  width:56px; height:56px; min-width:56px;
+  background:var(--yellow-subtle); border:1px solid var(--border2);
+  border-radius:16px; display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-weight:900; font-size:1rem; color:var(--yellow);
+}
+.brand-name { font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:0.3rem; }
+.brand-desc { font-size:0.82rem; color:var(--text-soft); line-height:1.55; }
+
+/* ── DISTRIBUIDORA ── */
+.dist-bg { background:var(--bg3); }
+.dist-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+.dist-tag {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--yellow); color:#0A0A0A;
+  font-size:0.78rem; font-weight:700; padding:6px 16px;
+  border-radius:50px; margin-bottom:1.5rem;
+  box-shadow:0 2px 12px rgba(245,197,24,0.3);
+}
+.dist-p { color:var(--text-soft); line-height:1.8; margin-bottom:1rem; }
+.dist-features { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2rem; }
+.dist-feature {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:16px; padding:1.2rem 1.4rem; transition:all 0.2s;
+}
+.dist-feature:hover { border-color:var(--border2); }
+.dist-feature-title { font-weight:700; font-size:0.88rem; color:var(--text); margin-bottom:0.3rem; }
+.dist-feature p { font-size:0.78rem; color:var(--text-soft); line-height:1.5; }
+.dist-visual {
+  background:var(--yellow); border-radius:28px; padding:3.5rem;
+  text-align:center; position:relative; overflow:hidden;
+  box-shadow:0 16px 48px rgba(245,197,24,0.25);
+}
+.dist-visual::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:rgba(255,255,255,0.15); border-radius:50%; }
+.dist-visual::after  { content:''; position:absolute; bottom:-60px; left:-30px; width:240px; height:240px; background:rgba(255,255,255,0.08); border-radius:50%; }
+.dist-num  { font-family:'Playfair Display',serif; font-size:5rem; font-weight:900; color:#0A0A0A; line-height:1; position:relative; z-index:1; }
+.dist-lbl  { font-weight:700; font-size:0.88rem; color:#3D2E1E; opacity:0.8; margin-top:0.5rem; position:relative; z-index:1; }
+.dist-div  { width:40px; height:3px; background:#0A0A0A; opacity:0.2; margin:1.5rem auto; border-radius:2px; }
+.dist-note { font-size:0.85rem; color:#3D2E1E; opacity:0.65; line-height:1.7; position:relative; z-index:1; margin-top:1.2rem; }
+
+/* ── PRODUTOS ── */
+.produtos-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:2.5rem; }
+.produto-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:20px; overflow:hidden; transition:all 0.2s;
+}
+.produto-card:hover { border-color:var(--border2); box-shadow:0 8px 32px var(--shadow-md); transform:translateY(-4px); }
+.produto-img  { aspect-ratio:1; background:var(--card2); display:flex; align-items:center; justify-content:center; font-size:2.8rem; }
+.produto-info { padding:1rem 1.2rem 1.5rem; }
+.produto-cat  { font-size:0.72rem; font-weight:600; color:var(--yellow); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.4rem; }
+.produto-name { font-weight:700; font-size:0.95rem; color:var(--text); margin-bottom:0.4rem; }
+.produto-desc { font-size:0.78rem; color:var(--text-soft); line-height:1.5; }
+
+/* ── ARTIGOS ── */
+.artigos-bg { background:var(--bg2); }
+.artigos-head { display:flex; align-items:flex-start; justify-content:space-between; gap:2rem; margin-bottom:2.5rem; flex-wrap:wrap; }
+.articles-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.article-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:20px; overflow:hidden; transition:all 0.2s;
+  text-decoration:none; color:inherit; display:block;
+}
+.article-card:hover { border-color:var(--border2); box-shadow:0 8px 32px var(--shadow-md); transform:translateY(-4px); }
+.article-img     { aspect-ratio:16/9; background:var(--card2); display:flex; align-items:center; justify-content:center; font-size:2.5rem; }
+.article-body    { padding:1.4rem; }
+.article-meta    { font-size:0.72rem; font-weight:600; color:var(--yellow); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.5rem; }
+.article-title   { font-weight:700; font-size:0.95rem; line-height:1.4; color:var(--text); margin-bottom:0.5rem; }
+.article-excerpt { font-size:0.8rem; color:var(--text-soft); line-height:1.6; }
+
+/* ── CONTACT ── */
+.contact-bg { background:var(--bg3); }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; margin-top:3rem; }
+.contact-form label { display:block; font-size:0.8rem; font-weight:600; color:var(--text-soft); margin-bottom:0.4rem; margin-top:1.2rem; }
+.contact-form input,
+.contact-form textarea {
+  width:100%; background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:12px 15px; color:var(--text);
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none; transition:all 0.2s;
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder { color:var(--text-muted); }
+.contact-form input:focus, .contact-form textarea:focus { border-color:var(--yellow); box-shadow:0 0 0 4px var(--yellow-glow); }
+.contact-form textarea { resize:vertical; min-height:130px; }
+.contact-form button {
+  margin-top:1.5rem; width:100%;
+  background:var(--yellow); color:#0A0A0A;
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:700;
+  padding:14px; border:none; border-radius:50px; cursor:pointer;
+  transition:all 0.2s; box-shadow:0 4px 20px rgba(245,197,24,0.35);
+}
+.contact-form button:hover { background:var(--yellow-dark); }
+.contact-info-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:24px; padding:2rem; margin-bottom:1.5rem;
+}
+.info-item { display:flex; align-items:flex-start; gap:1rem; padding:1rem 0; border-bottom:1px solid var(--border); }
+.info-item:last-child { border-bottom:none; padding-bottom:0; }
+.info-item:first-child { padding-top:0; }
+.info-icon {
+  width:42px; height:42px; min-width:42px;
+  background:var(--yellow-subtle); border:1px solid var(--border2);
+  border-radius:12px; display:flex; align-items:center; justify-content:center; color:var(--yellow);
+}
+.info-label { font-size:0.72rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.3rem; }
+.info-value { font-size:0.92rem; font-weight:600; color:var(--text); line-height:1.6; }
+.info-value a { color:var(--text); text-decoration:none; transition:color 0.2s; }
+.info-value a:hover { color:var(--yellow); }
+.map-embed { border-radius:20px; overflow:hidden; border:1px solid var(--border); }
+.map-embed iframe { display:block; width:100%; height:200px; filter:grayscale(80%) invert(90%) hue-rotate(180deg) brightness(0.7); }
+.social-row { display:flex; gap:0.8rem; margin-top:1.2rem; }
+.social-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--card); border:1px solid var(--border);
+  color:var(--text-soft); font-size:0.82rem; font-weight:600;
+  padding:9px 18px; border-radius:50px; text-decoration:none; transition:all 0.2s;
+}
+.social-btn:hover { border-color:var(--yellow); color:var(--yellow); }
+
+/* ── FOOTER ── */
+footer { background:var(--bg); border-top:1px solid var(--border); padding:70px 5vw 30px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid var(--border); margin-bottom:2rem; }
+.footer-logo { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; color:var(--text); margin-bottom:1rem; }
+.footer-logo span { color:var(--yellow); }
+.footer-about { font-size:0.85rem; line-height:1.7; color:var(--text-muted); }
+.footer-col h4 { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--yellow); margin-bottom:1.2rem; }
+.footer-col ul { list-style:none; }
+.footer-col ul li { margin-bottom:0.6rem; }
+.footer-col ul a { font-size:0.84rem; color:var(--text-soft); text-decoration:none; transition:color 0.2s; }
+.footer-col ul a:hover { color:var(--text); }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; font-size:0.78rem; color:var(--text-muted); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);} }
+.hero-left > * { animation:fadeUp 0.6s ease forwards; opacity:0; }
+.hero-left > *:nth-child(1){animation-delay:0.1s}
+.hero-left > *:nth-child(2){animation-delay:0.2s}
+.hero-left > *:nth-child(3){animation-delay:0.3s}
+.hero-left > *:nth-child(4){animation-delay:0.4s}
+.hero-left > *:nth-child(5){animation-delay:0.5s}
+.hero-right{animation:fadeUp 0.7s 0.3s ease forwards;opacity:0;}
+
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;padding-top:88px;}.hero::before{display:none;}
+  .brands-grid{grid-template-columns:1fr;}
+  .dist-inner{grid-template-columns:1fr;gap:3rem;}
+  .dist-features{grid-template-columns:1fr;}
+  .produtos-grid{grid-template-columns:repeat(2,1fr);}
+  .articles-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:580px){.produtos-grid{grid-template-columns:1fr;}.articles-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Desempenho<span>Veloz</span></a>
+  <ul class="nav-links">
+    <li><a href="#marcas">Marcas</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="artigos.html">Artigos</a></li>
+    <li><a href="sobre.html">Sobre Nós</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-pill"><div class="pill-dot"></div> Caldas das Taipas · Guimarães</div>
+    <h1>Peças Auto<br>de <em>Qualidade</em><br>Garantida</h1>
+    <p class="hero-sub">A sua loja de confiança para peças de automóvel. As melhores marcas, atendimento especializado, sempre perto de si.</p>
+    <div class="hero-btns">
+      <a href="tel:+351253775904" class="btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01-.07 2h3a2 2 0 012 1.72 12 12 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12 12 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        Ligar Agora
+      </a>
+      <a href="https://www.google.com/maps/place/Desempenho+Veloz" target="_blank" class="btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Como Chegar
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">10+</div><div class="stat-label">Anos de experiência</div></div>
+      <div><div class="stat-num">500+</div><div class="stat-label">Referências em stock</div></div>
+      <div><div class="stat-num">2</div><div class="stat-label">Marcas exclusivas</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div style="position:relative">
+      <div class="hero-img-placeholder">
+        <svg width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        Foto da Loja
+      </div>
+      <div class="hero-badge">
+        <div class="badge-icon">⭐</div>
+        <div><div class="badge-text">Distribuidor Exclusivo</div><div class="badge-sub">Caldas das Taipas</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Produtos Originais</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Seg–Sab · 09h–19h</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Atendimento Especializado</div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Caldas das Taipas</div>
+</div>
+
+<section class="section marcas-bg" id="marcas">
+  <div class="section-inner">
+    <div class="marcas-head">
+      <div>
+        <span class="section-pill">✦ Os nossos parceiros</span>
+        <h2>Marcas em que<br><em>pode confiar</em></h2>
+        <p class="section-sub" style="margin-top:0.5rem">Trabalhamos com as marcas mais reconhecidas do setor, garantindo qualidade e fiabilidade em cada peça.</p>
+      </div>
+    </div>
+    <div class="brands-grid">
+      <div class="brand-card">
+        <div class="brand-icon">LM</div>
+        <div><div class="brand-name">Liqui-Moly</div><div class="brand-desc">Óleos e lubrificantes de alta performance para máxima proteção do motor em qualquer condição</div></div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-icon">C</div>
+        <div><div class="brand-name">Castrol</div><div class="brand-desc">Lubrificantes premium desenvolvidos para todas as condições de condução e tipos de motor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dist-bg" id="distribuidora">
+  <div class="section-inner">
+    <div class="dist-inner">
+      <div>
+        <div class="dist-tag">⭐ Distribuidor Exclusivo</div>
+        <h2>Parceiros<br><em>certificados</em></h2>
+        <p class="dist-p">A Desempenho Veloz é distribuidora exclusiva das principais marcas na região, com acesso privilegiado aos melhores produtos e condições únicas para os clientes.</p>
+        <p class="dist-p">Vendemos exclusivamente em loja física, com atendimento personalizado e apoio técnico especializado — porque nada substitui a experiência presencial.</p>
+        <div class="dist-features">
+          <div class="dist-feature"><div class="dist-feature-title">📦 Stock Garantido</div><p>Disponibilidade permanente das referências mais procuradas</p></div>
+          <div class="dist-feature"><div class="dist-feature-title">💰 Melhor Preço</div><p>Acesso direto ao fabricante significa melhores condições</p></div>
+          <div class="dist-feature"><div class="dist-feature-title">✅ 100% Originais</div><p>Garantia de autenticidade em todas as peças</p></div>
+          <div class="dist-feature"><div class="dist-feature-title">🔧 Apoio Técnico</div><p>Equipa especializada para ajudar na escolha certa</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="dist-visual">
+          <div class="dist-num">Nº1</div>
+          <div class="dist-div"></div>
+          <div class="dist-lbl">Distribuidor na região<br>das Caldas das Taipas</div>
+          <p class="dist-note">Venda presencial com atendimento personalizado. Porque o seu carro merece o melhor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="produtos">
+  <div class="section-inner">
+    <span class="section-pill">✦ O que vendemos</span>
+    <h2>Produtos em <em>destaque</em></h2>
+    <div class="produtos-grid">
+      <div class="produto-card"><div class="produto-img">🛢️</div><div class="produto-info"><div class="produto-cat">Óleos</div><div class="produto-name">Liqui-Moly 5W-30</div><div class="produto-desc">Óleo sintético para motores modernos</div></div></div>
+      <div class="produto-card"><div class="produto-img">🛢️</div><div class="produto-info"><div class="produto-cat">Óleos</div><div class="produto-name">Castrol EDGE 5W-40</div><div class="produto-desc">Tecnologia de força fluida para máximo desempenho</div></div></div>
+      <div class="produto-card"><div class="produto-img">🔧</div><div class="produto-info"><div class="produto-cat">Travões</div><div class="produto-name">Pastilhas de Travão</div><div class="produto-desc">Travagem precisa para todas as condições</div></div></div>
+      <div class="produto-card"><div class="produto-img">⚙️</div><div class="produto-info"><div class="produto-cat">Filtros</div><div class="produto-name">Filtros de Ar & Óleo</div><div class="produto-desc">Motor limpo com filtração de alta eficiência</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section artigos-bg">
+  <div class="section-inner">
+    <div class="artigos-head">
+      <div><span class="section-pill">✦ Dicas & Manutenção</span><h2>Artigos <em>úteis</em></h2></div>
+      <a href="artigos.html" class="btn-outline" style="margin-top:1rem">Ver todos →</a>
+    </div>
+    <div class="articles-grid">
+      <a href="artigos.html" class="article-card"><div class="article-img">🛢️</div><div class="article-body"><div class="article-meta">Manutenção · 4 min</div><div class="article-title">Quando trocar o óleo do carro?</div><div class="article-excerpt">Descubra os sinais de alerta e a frequência recomendada para manter o motor protegido.</div></div></a>
+      <a href="artigos.html" class="article-card"><div class="article-img">🔧</div><div class="article-body"><div class="article-meta">Segurança · 5 min</div><div class="article-title">Como verificar as pastilhas dos travões</div><div class="article-excerpt">Aprenda a identificar desgaste antes que se torne um problema de segurança.</div></div></a>
+      <a href="artigos.html" class="article-card"><div class="article-img">⚙️</div><div class="article-body"><div class="article-meta">Filtros · 3 min</div><div class="article-title">Filtro de ar: quando substituir?</div><div class="article-excerpt">Um filtro sujo pode reduzir a potência e aumentar o consumo de combustível.</div></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section contact-bg" id="contacto">
+  <div class="section-inner">
+    <span class="section-pill">✦ Fale Connosco</span>
+    <h2>Entre em <em>contacto</em></h2>
+    <div class="contact-grid">
+      <div class="contact-form">
+        <label>Nome Completo</label><input type="text" placeholder="O seu nome">
+        <label>E-mail</label><input type="email" placeholder="email@exemplo.com">
+        <label>Telefone</label><input type="tel" placeholder="+351 912 345 678">
+        <label>Mensagem</label><textarea placeholder="Em que podemos ajudar?"></textarea>
+        <button>Enviar Mensagem</button>
+      </div>
+      <div>
+        <div class="contact-info-card">
+          <div class="info-item">
+            <div class="info-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div><div class="info-label">Horário</div><div class="info-value">Segunda a Sábado<br>09:00 – 19:00</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01-.07 2h3a2 2 0 012 1.72 12 12 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12 12 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><div class="info-label">Telefone</div><div class="info-value"><a href="tel:+351253775904">253 775 904</a></div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="info-label">Localização</div><div class="info-value">Caldas das Taipas, Guimarães</div></div>
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.7!2d-8.350224!3d41.487442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24fbd7044b339f%3A0x91d2060a94096503!2sDesempenho+Veloz+-+Pe%C3%A7as+Auto!5e0!3m2!1spt!2spt!4v1" style="border:0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="social-row">
+          <a href="#" class="social-btn"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>Facebook</a>
+          <a href="#" class="social-btn"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo">Desempenho<span>Veloz</span></div><p class="footer-about">A sua loja de referência para peças de automóvel nas Caldas das Taipas. Atendimento especializado, produtos originais, preços competitivos.</p></div>
+    <div class="footer-col"><h4>Produtos</h4><ul><li><a href="#">Óleos Liqui-Moly</a></li><li><a href="#">Óleos Castrol</a></li><li><a href="#">Travões & Discos</a></li><li><a href="#">Filtros</a></li><li><a href="#">Baterias</a></li></ul></div>
+    <div class="footer-col"><h4>Empresa</h4><ul><li><a href="sobre.html">Sobre Nós</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="tel:+351253775904">253 775 904</a></li><li><a href="#">Caldas das Taipas</a></li><li><a href="#">Seg – Sáb</a></li><li><a href="#">09:00 – 19:00</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Desempenho Veloz · Todos os direitos reservados</span><span>Caldas das Taipas, Guimarães</span></div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40); });
+</script>
+</body>
+</html>
