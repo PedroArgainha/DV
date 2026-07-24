@@ -179,7 +179,7 @@ export default function HomePage() {
             </form>
             <div>
               <div className="contact-info-card">
-                <div className="info-item"><div className="info-icon">◷</div><div><div className="info-label">Horário</div><div className="info-value">Segunda a Sábado<br />09:00 – 19:00</div></div></div>
+                <div className="info-item"><div className="info-icon">◷</div><div><div className="info-label">Horário</div><div className="info-value">Segunda-Sexta · 09-12h30 14h00-19h00 <br />Sábado 09h–12h30</div></div></div>
                 <div className="info-item"><div className="info-icon">☎</div><div><div className="info-label">Telefone</div><div className="info-value"><a href="tel:+351253775904">253 775 904</a></div></div></div>
                 <div className="info-item"><div className="info-icon">⌖</div><div><div className="info-label">Localização</div><div className="info-value">R. Francisco Pereira Silvério 22, 4805-091, Caldelas, Guimarães</div></div></div>
               </div>
