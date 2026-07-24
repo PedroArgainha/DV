@@ -6,7 +6,7 @@ import { IconBattery, IconBox, IconCheck, IconChevronLeft, IconChevronRight, Ico
 const brands = [
   ['MO', 'Motul', 'Tecnologia francesa de referência em lubrificantes de alta performance'],
   ['LM', 'Liqui-Moly', 'Óleos e lubrificantes alemães para máxima proteção do motor'],
-  ['MN', 'Manol', 'Lubrificantes fiáveis com excelente relação qualidade-preço'],
+  ['MN', 'Mannol', 'Lubrificantes fiáveis com excelente relação qualidade-preço'],
   ['CT', 'Castrol', 'Óleos preparados para todas as condições de condução'],
 ]
 
@@ -116,7 +116,7 @@ export default function HomePage() {
 
       <div className="trust-bar">
         <div className="trust-item"><IconCheck /> Produtos Originais</div><span className="trust-sep" />
-        <div className="trust-item">Seg–Sáb · 09h–19h</div><span className="trust-sep" />
+        <div className="trust-item">Seg-Sex 09-12h30 14h00-10h00 · Sáb 09h–12h30</div><span className="trust-sep" />
         <div className="trust-item">Atendimento Especializado</div><span className="trust-sep" />
         <div className="trust-item">Caldas das Taipas</div>
       </div>
