@@ -116,7 +116,7 @@ export default function HomePage() {
 
       <div className="trust-bar">
         <div className="trust-item"><IconCheck /> Produtos Originais</div><span className="trust-sep" />
-        <div className="trust-item">Seg-Sex 09-12h30 14h00-10h00 · Sáb 09h–12h30</div><span className="trust-sep" />
+        <div className="trust-item">Seg-Sex 09-12h30 14h00-19h00 · Sáb 09h–12h30</div><span className="trust-sep" />
         <div className="trust-item">Atendimento Especializado</div><span className="trust-sep" />
         <div className="trust-item">Caldas das Taipas</div>
       </div>
