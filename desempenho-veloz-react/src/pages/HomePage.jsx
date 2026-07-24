@@ -101,8 +101,8 @@ export default function HomePage() {
             <a href="https://www.google.com/maps/place/Desempenho+Veloz" target="_blank" rel="noreferrer" className="btn-outline">Como Chegar</a>
           </div>
           <div className="hero-stats">
-            <div><div className="stat-num">3+</div><div className="stat-label">Anos de experiência</div></div>
-            <div><div className="stat-num">500+</div><div className="stat-label">Referências em stock</div></div>
+            <div><div className="stat-num">4+</div><div className="stat-label">Anos de experiência</div></div>
+            <div><div className="stat-num">20000+</div><div className="stat-label">Referências em stock</div></div>
             <div><div className="stat-num stat-goshop">GoShop</div><div className="stat-label">Marca exclusiva</div></div>
           </div>
         </div>
