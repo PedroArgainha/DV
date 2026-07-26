@@ -101,8 +101,8 @@ export default function HomePage() {
             <a href="https://www.google.com/maps/place/Desempenho+Veloz" target="_blank" rel="noreferrer" className="btn-outline">Como Chegar</a>
           </div>
           <div className="hero-stats">
-            <div><div className="stat-num">4+</div><div className="stat-label">Anos de experiência</div></div>
-            <div><div className="stat-num">20000+</div><div className="stat-label">Referências em stock</div></div>
+            <div><div className="stat-num">+25</div><div className="stat-label">Anos de experiência</div></div>
+            <div><div className="stat-num">+20.000</div><div className="stat-label">Referências em stock</div></div>
             <div><div className="stat-num stat-goshop">GoShop</div><div className="stat-label">Marca exclusiva</div></div>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function HomePage() {
           <div className="brands-category">Óleos & Lubrificantes</div>
           <div className="brands-grid">{brands.map(([initials, name, description]) => <article className="brand-card" key={name}><div className="brand-icon">{initials}</div><div><div className="brand-name">{name}</div><div className="brand-desc">{description}</div></div></article>)}</div>
           <div className="brands-category">Peças, Travagem, Filtração & Baterias</div>
-          <div className="brand-chips">{['TRW', 'SKF', 'UFI', 'MAHLE', 'Blueprint', 'MAN', 'Cammoca · Baterias'].map((brand) => <span className="brand-chip" key={brand}>{brand}</span>)}</div>
+          <div className="brand-chips">{['TRW', 'SKF', 'UFI', 'MAHLE', 'Blueprint', 'MAN', 'Kammoca · Baterias'].map((brand) => <span className="brand-chip" key={brand}>{brand}</span>)}</div>
         </div>
       </section>
 
