@@ -1,95 +1,11 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ImageSlot from '../components/ImageSlot'
-import { IconBattery, IconBox, IconCheck, IconChevronLeft, IconChevronRight, IconCoin, IconDroplet, IconFilter, IconShieldCheck, IconStar, IconThermometer, IconWrench } from '../components/Icons'
-
-const brands = [
-  ['MO', 'Motul', 'Tecnologia francesa de referência em lubrificantes de alta performance'],
-  ['LM', 'Liqui-Moly', 'Óleos e lubrificantes alemães para máxima proteção do motor'],
-  ['MN', 'Mannol', 'Lubrificantes fiáveis com excelente relação qualidade-preço'],
-  ['CT', 'Castrol', 'Óleos preparados para todas as condições de condução'],
-]
-
-const products = [
-  [<IconDroplet key="i" />, 'Óleos', 'Castrol Edge 5W-30', 'Óleo sintético para motores modernos', '/images/produtos/oleo-liquimoly.jpg'],
-  [<IconDroplet key="i" />, 'Óleos', 'Mannol LongLife 5W-30', 'Tecnologia de força fluida para máximo desempenho', '/images/produtos/oleo-castrol.jpg'],
-  [<IconWrench key="i" />, 'Travões', 'Discos e Pastilhas', 'Travagem precisa para todas as condições', '/images/produtos/travoes.jpg'],
-  [<IconFilter key="i" />, 'Filtros', 'Filtros de Ar & Óleo', 'Motor limpo com filtração de alta eficiência', '/images/produtos/filtros.jpg'],
-  [<IconBattery key="i" />, 'Baterias', 'Baterias', 'Arranque fiável com garantia de qualidade', '/images/produtos/baterias.jpg'],
-  ]
-
-// Fotos da hero em slide — coloque os ficheiros em public/images/loja/
-// com estes nomes. Pode ter mais do que 4, é só acrescentar à lista.
-const heroPhotos = [
-  '/images/loja/slide-1.jpg',
-  '/images/loja/slide-2.jpg',
-  '/images/loja/slide-3.jpg',
-  '/images/loja/slide-4.jpg',
-]
-
-function HeroSlideshow() {
-  const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const first = heroPhotos[index % heroPhotos.length]
-  const second = heroPhotos[(index + 1) % heroPhotos.length]
-
-  const showPrevious = () => {
-    setIndex((value) => (value - 1 + heroPhotos.length) % heroPhotos.length)
-  }
-
-  const showNext = () => {
-    setIndex((value) => (value + 1) % heroPhotos.length)
-  }
-
-  useEffect(() => {
-    if (paused || heroPhotos.length < 2) return undefined
-
-    const timer = window.setInterval(() => {
-      setIndex((value) => (value + 1) % heroPhotos.length)
-    }, 5000)
-    return () => window.clearInterval(timer)
-  }, [paused])
-
-  return (
-    <div
-      className="hero-slide"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
-      aria-label="Galeria de fotografias da loja"
-    >
-      <div className="hero-slide-img hero-slide-img-main">
-        <ImageSlot src={first} alt="Loja Desempenho Veloz" className="hero-slide-photo" label={first.split('/').pop()} />
-      </div>
-      <div className="hero-slide-img hero-slide-img-secondary">
-        <ImageSlot src={second} alt="Loja Desempenho Veloz" className="hero-slide-photo" label={second.split('/').pop()} />
-      </div>
-
-      <button type="button" className="hero-slide-control hero-slide-prev" onClick={showPrevious} aria-label="Ver fotografias anteriores">
-        <IconChevronLeft />
-      </button>
-      <button type="button" className="hero-slide-control hero-slide-next" onClick={showNext} aria-label="Ver fotografias seguintes">
-        <IconChevronRight />
-      </button>
-
-      <div className="hero-slide-dots" aria-hidden="true">
-        {heroPhotos.map((photo, photoIndex) => (
-          <span className={photoIndex === index ? 'active' : ''} key={photo} />
-        ))}
-      </div>
-    </div>
-  )
-}
+import ContactForm from '../components/ContactForm'
+import HeroSlideshow from '../components/HeroSlideshow'
+import { brands, products } from '../data/catalog'
+import { IconBox, IconCheck, IconCoin, IconDroplet, IconFilter, IconShieldCheck, IconStar, IconWrench } from '../components/Icons'
 
 export default function HomePage() {
-  function handleSubmit(event) {
-    event.preventDefault()
-    const form = event.currentTarget
-    form.reset()
-    form.querySelector('[data-status]').textContent = 'Mensagem preparada. Ligue-nos para um contacto imediato.'
-  }
-
   return (
     <>
       <section className="hero">
@@ -170,13 +86,7 @@ export default function HomePage() {
       <section className="section contact-bg" id="contacto">
         <div className="section-inner"><span className="section-pill">Fale Connosco</span><h2>Entre em <em>contacto</em></h2>
           <div className="contact-grid">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <label htmlFor="name">Nome Completo</label><input id="name" name="name" type="text" placeholder="O seu nome" required />
-              <label htmlFor="email">E-mail</label><input id="email" name="email" type="email" placeholder="email@exemplo.com" required />
-              <label htmlFor="phone">Telefone</label><input id="phone" name="phone" type="tel" placeholder="+351 912 345 678" />
-              <label htmlFor="message">Mensagem</label><textarea id="message" name="message" placeholder="Em que podemos ajudar?" required />
-              <button type="submit">Enviar Mensagem</button><p className="form-status" data-status aria-live="polite" />
-            </form>
+            <ContactForm />
             <div>
               <div className="contact-info-card">
                 <div className="info-item"><div className="info-icon">◷</div><div><div className="info-label">Horário</div><div className="info-value">Segunda-Sexta · 09-12h30 14h00-19h00 <br />Sábado 09h–12h30</div></div></div>
